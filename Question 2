@@ -1,0 +1,15 @@
+!wget -q -O "toronto_coordinates.csv" http://cocl.us/Geospatial_data
+print('Coordinates downloaded!')
+coors = pd.read_csv('toronto_coordinates.csv')
+print(coors.shape)
+coors.head()
+
+toronto_df_temp = toronto_df_cleaned.set_index('PostalCode')
+coors_temp = coors.set_index('Postal Code')
+toronto_df_coors = pd.concat([toronto_df_temp, coors_temp], axis=1, join='inner')
+
+toronto_df_coors.index.name = 'PostalCode'
+toronto_df_coors.reset_index(inplace=True)
+
+print(toronto_df_coors.shape)
+toronto_df_coors.head()
